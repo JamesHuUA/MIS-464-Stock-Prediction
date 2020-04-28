@@ -176,7 +176,7 @@ def testModel(model, data, totalPredictions, trainingWindow, allDataTest= False)
 
     if allDataTest:
         testData = data.tolist()
-        totalPredictions = len(trainingData) - trainingWindow
+        totalPredictions = len(data) - trainingWindow
     else:
         testData = data[-totalPredictions - trainingWindow:].tolist()
 
@@ -272,23 +272,22 @@ model, loss = trainModelFromScratch(trainIOSeq, epochLimit)
 
 predictions, actual = testModel(model, aggregateData,
                                 totalPredictions=aggregateData.shape[0] - trainingData.shape[0],
-                                trainingWindow=trainingWindow)
+                                trainingWindow=trainingWindow,
+                                allDataTest= True)
 
-for i in range(aggregateData.shape[0] - trainingData.shape[0]):
-    print(predictions[i][0], actual[i][0])
 
-with open('../loss.txt', 'w') as writefile:
+with open('./loss.txt', 'w') as writefile:
     for losspoint in loss:
         writefile.write(str(losspoint) + "\n")
 
-with open('../predictions.txt', 'w') as writefile:
+with open('./predictions.txt', 'w') as writefile:
     for i in range(aggregateData.shape[0] - trainingData.shape[0]):
         writefile.write(str(predictions[i][0]) + " ")
         writefile.write(str(actual[i][0]) + "\n")
 
 setPltWindow("Stock Close Prices", windX=13, windY=5, xLabel="Date", yLabel="Stock Close")
-plt.plot(close[trainingData.shape[0]:])
 
-x = np.arange(0, aggregateData.shape[0] - trainingData.shape[0], 1)
+plt.plot(close[trainingWindow:])
+x = np.arange(0, aggregateData.shape[0] - trainingWindow, 1)
 plt.plot(x, predictions)
 plt.show()
