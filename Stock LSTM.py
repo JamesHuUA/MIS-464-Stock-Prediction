@@ -1,6 +1,6 @@
 '''
 Author: James Lee Hu
-University Information: University of Arizona, Management of Information Systems major, Class of 2022
+University Information: University of Arizona, Management Information Systems major, Class of 2022
 Date: April 28, 2020
 
 Code Objective: This code demonstrates an LSTM's ability to predict the price of one specific stock without
