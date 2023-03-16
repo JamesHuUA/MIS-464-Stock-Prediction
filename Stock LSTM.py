@@ -271,29 +271,28 @@ trainIOSeq = create_inout_sequences(trainingData, trainingWindow)
 
 print(len(trainingData[0]))
 
-# model, loss = trainModelFromScratch(trainIOSeq, epochLimit)
+model, loss = trainModelFromScratch(trainIOSeq, epochLimit)
 
-# predictions, actual = testModel(model, aggregateData,
-#                                 totalPredictions=aggregateData.shape[0] - trainingData.shape[0],
-#                                 trainingWindow=trainingWindow,
-#                                 allDataTest= True)
+predictions, actual = testModel(model, aggregateData,
+                                totalPredictions=aggregateData.shape[0] - trainingData.shape[0],
+                                trainingWindow=trainingWindow,
+                                allDataTest= True)
 
 
-# with open('./loss.txt', 'w') as writefile:
-#     for losspoint in loss:
-#         writefile.write(str(losspoint) + "\n")
+with open('./loss.txt', 'w') as writefile:
+    for losspoint in loss:
+        writefile.write(str(losspoint) + "\n")
 
-# with open('./predictions.txt', 'w') as writefile:
-#     for i in range(len(predictions)):
-#         writefile.write(str(predictions[i][0]) + " ")
-#         writefile.write(str(actual[i][0]) + "\n")
+with open('./predictions.txt', 'w') as writefile:
+    for i in range(len(predictions)):
+        writefile.write(str(predictions[i][0]) + " ")
+        writefile.write(str(actual[i][0]) + "\n")
 
-# setPltWindow("Stock Close Prices", windX=13, windY=5, xLabel="Date", yLabel="Stock Close")
+setPltWindow("Stock Close Prices", windX=13, windY=5, xLabel="Date", yLabel="Stock Close")
 
-# # This portion of the code needs to be changed depending on what the output format/dimension is
-# #  and what the user wants to display
-# plt.plot(close[trainingWindow:])
-# x = np.arange(0, aggregateData.shape[0] - trainingWindow, 1)
-# plt.plot(x, predictions)
-# plt.show()
-# :
+# This portion of the code needs to be changed depending on what the output format/dimension is
+#  and what the user wants to display
+plt.plot(close[trainingWindow:])
+x = np.arange(0, aggregateData.shape[0] - trainingWindow, 1)
+plt.plot(x, predictions)
+plt.show()
